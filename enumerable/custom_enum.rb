@@ -55,7 +55,7 @@ module Enumerable
       0.upto(len - 1) { |i| return false unless yield(as_array[i]) }
     else
       0.upto(len - 1) { |i| return false if as_array[i].nil? || as_array[i] == false }
-    end
+    end    
     true
   end
 

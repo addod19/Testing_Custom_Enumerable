@@ -57,4 +57,16 @@ RSpec.describe Enumerable do
       expect(array_five.my_map { |_e, f| f }).to eql(%w[one two three four])
     end
   end
+  
+  describe " #my_count(para = nil) " do
+    it "It returns the number of elements in array when no parameter is given and no block is passed " do
+      expect(array_one.my_count ).to eql( 5 )
+    end
+    it "It returns the number of the argument that exist in the array it operates upon,when no block is given " do
+      expect(array_bool_1.my_count(false) ).to eql( 2 )
+    end
+    it "It returns the number of that exist in the array based on the condition specified in the block " do
+      expect(array_two.my_count { |a| a  == 6 } ).to eql( 1 )
+    end
+  end
 end

@@ -51,7 +51,7 @@ The motive of this project is to replicate some enumerable methods in Ruby in a 
 
 - `my_select`
 
-- `my_any?`
+- `my_all?`
 
 - `my_count`
 
