@@ -75,4 +75,13 @@ RSpec.describe Enumerable do
       expect( array_one.my_select{ | a | a > 2} ).to eql([3,4,5])
     end
   end
+
+  describe "#my_inject(param = nil)" do
+    it "It returns a value based on the operation specified in the block whilst no argument is given" do
+      expect( array_one.my_inject { |sum,value| sum + value} ).to eql(25)
+    end
+    it "It returns a value based on the operation specified in the block whilst and the argument is given" do
+      expect( array_one.my_inject(1) { |sum,value| sum + value} ).to eql(10)
+    end
+  end
 end
