@@ -69,4 +69,10 @@ RSpec.describe Enumerable do
       expect(array_two.my_count { |a| a  == 6 } ).to eql( 1 )
     end
   end
+
+  describe "#my_select" do
+    it "It returns a new array based on the value specified in the in the block" do
+      expect( array_one.my_select{ | a | a > 2} ).to eql([3,4,5])
+    end
+  end
 end
