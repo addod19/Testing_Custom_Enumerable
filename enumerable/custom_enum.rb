@@ -47,16 +47,22 @@ module Enumerable
     len = as_array.length
     return as_array unless as_array.is_a?(Array)
 
-    unless args.empty?
-      puts `#{caller[0].split(':')[0..-2].join(':')} warning: arguments already passed` if block_given?
-      return as_array.grep(args[0]).length == len
-    end
+    check_empty(*args)
     if block_given?
       0.upto(len - 1) { |i| return false unless yield(as_array[i]) }
     else
       0.upto(len - 1) { |i| return false if as_array[i].nil? || as_array[i] == false }
     end
     true
+  end
+
+  def check_empty(*args)
+    as_array = convert_to_array(self)
+    len = as_array.length
+    return unless args.empty?
+
+    puts `#{caller[0].split(':')[0..-2].join(':')} warning: arguments already passed` if block_given?
+    as_array.grep(args[0]).length == len
   end
 
   def my_any?(*args)
@@ -68,12 +74,7 @@ module Enumerable
       puts `#{caller[0].split(':')[0..-2].join(':')} warning: arguments already passed` if block_given?
       return as_array.grep(args[0]).empty? ? false : true
     end
-    if block_given?
-      0.upto(len - 1) { |i| return true if yield(as_array[i]) }
-    else
-      0.upto(len - 1) { |i| return true unless as_array[i].nil? || as_array[i] == false }
-    end
-    false
+    check_true(len, as_array)
   end
 
   def my_none?(*args)
@@ -85,12 +86,7 @@ module Enumerable
       puts `#{caller[0].split(':')[0..-2].join(':')} warning: arguments already passed` if block_given?
       return as_array.grep(args[0]).empty? ? true : false
     end
-    if block_given?
-      0.upto(len - 1) { |i| return false if yield(as_array[i]) }
-    else
-      0.upto(len - 1) { |i| return false unless as_array[i].nil? || as_array[i] == false }
-    end
-    true
+    check_false(len, as_array)
   end
 
   def my_count(*args)
